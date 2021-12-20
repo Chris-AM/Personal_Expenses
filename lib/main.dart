@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './widgets/new_transaction.dart';
 
 import './widgets/transaction_list.dart';
 import './models/transaction.dart';
@@ -40,39 +41,9 @@ class PersonalExpenses extends StatelessWidget {
               child: Text('Chart'),
             ),
           ),
-          Card(
-            elevation: 5.0,
-            child: Container(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Producto',
-                    ),
-                    controller: productController,
-                    //onChanged: (value) {},
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'Precio',
-                    ),
-                    controller: amountController,
-                    //onChanged: (value) {},
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      print(
-                        'product => ${productController.text}, amountController => ${amountController.text}',
-                      );
-                    },
-                    child: const Text('Agregar a la lista'),
-                    style: TextButton.styleFrom(primary: Colors.deepPurple),
-                  )
-                ],
-              ),
-            ),
-          ),
+          //Create new transaction
+          NewTransaction(),
+          //List of transactions done
           TransactionList()
         ],
       ),
