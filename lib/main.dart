@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import './transaction.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
+import 'models/transaction.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,6 +35,9 @@ class PersonalExpenses extends StatelessWidget {
     ),
   ];
 
+  final productController = TextEditingController();
+  final amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,13 +45,46 @@ class PersonalExpenses extends StatelessWidget {
         title: const Text('Personal Expenses'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
             width: double.infinity,
             child: const Card(
               color: Colors.blue,
               child: Text('Chart'),
+            ),
+          ),
+          Card(
+            elevation: 5.0,
+            child: Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Producto',
+                    ),
+                    controller: productController,
+                    //onChanged: (value) {},
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: 'Precio',
+                    ),
+                    controller: amountController,
+                    //onChanged: (value) {},
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      print(
+                        'product => ${productController.text}, amountController => ${amountController.text}',
+                      );
+                    },
+                    child: const Text('Agregar a la lista'),
+                    style: TextButton.styleFrom(primary: Colors.deepPurple),
+                  )
+                ],
+              ),
             ),
           ),
           Column(
@@ -73,7 +111,7 @@ class PersonalExpenses extends StatelessWidget {
                         //giving space to the amount box
                         padding: const EdgeInsets.all(10),
                         child: Text(
-                          transaction.amount.toString(),
+                          '\$${transaction.amount}',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15.0,
@@ -83,19 +121,22 @@ class PersonalExpenses extends StatelessWidget {
                       ),
                       //here ill show the title and the date
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
                             transaction.title,
                             style: const TextStyle(
-                              color: Colors.blueGrey,
                               fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
                           ),
                           Text(
-                            transaction.date.toString(),
+                            DateFormat('dd/MM/yy')
+                                .add_jm()
+                                .format(transaction.date),
                             style: const TextStyle(
-                              color: Colors.deepPurpleAccent,
+                              color: Colors.grey,
+                              fontSize: 15,
                             ),
                           ),
                         ],
