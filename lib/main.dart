@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
-import 'models/transaction.dart';
+import './widgets/transaction_list.dart';
+import './models/transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,20 +19,7 @@ class MyApp extends StatelessWidget {
 class PersonalExpenses extends StatelessWidget {
   PersonalExpenses({Key? key}) : super(key: key);
 
-  final List<Transaction> transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Zapatos',
-      amount: 59990,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Comida',
-      amount: 15600,
-      date: DateTime.now(),
-    ),
-  ];
+  final List<Transaction> transactions = [];
 
   final productController = TextEditingController();
   final amountController = TextEditingController();
@@ -87,66 +73,7 @@ class PersonalExpenses extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            //Mapping the transactions to a list of widgets
-            children: transactions.map(
-              (transaction) {
-                return Card(
-                  child: Row(
-                    children: <Widget>[
-                      //here ill show the amount
-                      Container(
-                        //separing the amount from the rest of the card
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        //styling the amount box
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.deepPurple,
-                            width: 2,
-                          ),
-                        ),
-                        //giving space to the amount box
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          '\$${transaction.amount}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.0,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                        ),
-                      ),
-                      //here ill show the title and the date
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            transaction.title,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Text(
-                            DateFormat('dd/MM/yy')
-                                .add_jm()
-                                .format(transaction.date),
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ).toList(),
-          ),
+          TransactionList()
         ],
       ),
     );
