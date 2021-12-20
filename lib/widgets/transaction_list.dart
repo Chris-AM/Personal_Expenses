@@ -7,10 +7,11 @@ class TransactionList extends StatelessWidget {
   TransactionList(this.transactions);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      //Mapping the transactions to a list of widgets
-      children: transactions.map(
-        (transaction) {
+    return Container(
+      height: 450,
+      child: ListView.builder(
+        //ctx = context
+        itemBuilder: (ctx, index) {
           return Card(
             child: Row(
               children: <Widget>[
@@ -31,7 +32,7 @@ class TransactionList extends StatelessWidget {
                   //giving space to the amount box
                   padding: const EdgeInsets.all(10),
                   child: Text(
-                    '\$${transaction.amount}',
+                    '\$${transactions[index].amount}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15.0,
@@ -44,14 +45,16 @@ class TransactionList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      transaction.title,
+                      transactions[index].title,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
                     Text(
-                      DateFormat('dd/MM/yy').add_jm().format(transaction.date),
+                      DateFormat('dd/MM/yy')
+                          .add_jm()
+                          .format(transactions[index].date),
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 15,
@@ -63,7 +66,9 @@ class TransactionList extends StatelessWidget {
             ),
           );
         },
-      ).toList(),
+        //creating a linear scroll
+        itemCount: transactions.length,
+      ),
     );
   }
 }
