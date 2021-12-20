@@ -30,18 +30,24 @@ class PersonalExpenses extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Personal Expenses'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-           Container(
-            width: double.infinity,
-            child:  Card(
-              color: Colors.blue,
-              child: Text('Chart'),
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            //this is the chart
+            Container(
+              padding: const EdgeInsets.all(1.0),
+              width: double.infinity,
+              child: const Card(
+                color: Colors.blue,
+                child: Text('Chart'),
+                elevation: 5,
+              ),
             ),
-          ),
-          UserTransaction(),
-        ],
+            const UserTransaction(),
+          ],
+        ),
       ),
     );
   }
