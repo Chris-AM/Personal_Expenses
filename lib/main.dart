@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import './widgets/new_transaction.dart';
+import './widgets/user_transaction.dart';
 
-import './widgets/transaction_list.dart';
 import './models/transaction.dart';
 
 void main() => runApp(MyApp());
@@ -34,17 +33,14 @@ class PersonalExpenses extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container(
+           Container(
             width: double.infinity,
-            child: const Card(
+            child:  Card(
               color: Colors.blue,
               child: Text('Chart'),
             ),
           ),
-          //Create new transaction
-          NewTransaction(),
-          //List of transactions done
-          TransactionList()
+          UserTransaction(),
         ],
       ),
     );

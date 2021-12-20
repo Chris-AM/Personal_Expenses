@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class NewTransaction extends StatelessWidget {
-  NewTransaction({Key? key}) : super(key: key);
   final productController = TextEditingController();
   final amountController = TextEditingController();
+  final Function addTransaction;
+
+  NewTransaction(this.addTransaction, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -28,8 +31,9 @@ class NewTransaction extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                print(
-                  'product => ${productController.text}, amountController => ${amountController.text}',
+                addTransaction(
+                  productController.text,
+                  int.parse(amountController.text)
                 );
               },
               child: const Text('Agregar a la lista'),
