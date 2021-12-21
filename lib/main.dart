@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:personal_expenses/widgets/transaction_list.dart';
+import './widgets/chart.dart';
+import './widgets/transaction_list.dart';
 
 import './models/transaction.dart';
 import './widgets/new_transaction.dart';
@@ -57,6 +58,16 @@ class _PersonalExpensesState extends State<PersonalExpenses> {
     // ),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _transactionsList.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          const Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void _addNewTransaction(String transactionProduct, int transactionAmount) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
@@ -100,16 +111,8 @@ class _PersonalExpensesState extends State<PersonalExpenses> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             //this is the chart
-            Container(
-              padding: const EdgeInsets.all(1.0),
-              width: double.infinity,
-              child: Card(
-                color: Theme.of(context).primaryColor,
-                child: const Text('Chart'),
-                elevation: 5,
-              ),
-            ),
-            TransactionList(_transactionsList)
+            Chart(_recentTransactions),
+            TransactionList(_transactionsList),
           ],
         ),
       ),
