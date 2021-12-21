@@ -25,7 +25,7 @@ class TransactionList extends StatelessWidget {
                   //styling the amount box
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.deepPurple,
+                      color: Theme.of(context).primaryColorDark,
                       width: 2,
                     ),
                   ),
@@ -33,10 +33,10 @@ class TransactionList extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   child: Text(
                     '\$${transactions[index].amount}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15.0,
-                      color: Colors.deepPurpleAccent,
+                      color: Theme.of(context).primaryColorDark,
                     ),
                   ),
                 ),

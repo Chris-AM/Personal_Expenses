@@ -55,8 +55,8 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             TextButton(
               onPressed: submitData,
-              child: const Text('Agregar a la lista'),
-              style: TextButton.styleFrom(primary: Colors.deepPurple),
+              child:  Text('Agregar a la lista'),
+              style: TextButton.styleFrom(primary: Theme.of(context).primaryColor),
             )
           ],
         ),
