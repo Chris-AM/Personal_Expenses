@@ -43,18 +43,18 @@ class PersonalExpenses extends StatefulWidget {
 
 class _PersonalExpensesState extends State<PersonalExpenses> {
   final List<Transaction> _transactionsList = [
-    Transaction(
-      id: 't1',
-      title: 'Zapatos',
-      amount: 59990,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Comida',
-      amount: 15600,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Zapatos',
+    //   amount: 59990,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Comida',
+    //   amount: 15600,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addNewTransaction(String transactionProduct, int transactionAmount) {
