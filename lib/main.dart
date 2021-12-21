@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import './widgets/user_transaction.dart';
+import 'package:personal_expenses/widgets/transaction_list.dart';
 
 import './models/transaction.dart';
+import './widgets/new_transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,19 +17,65 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class PersonalExpenses extends StatelessWidget {
+class PersonalExpenses extends StatefulWidget {
   PersonalExpenses({Key? key}) : super(key: key);
 
-  final List<Transaction> transactions = [];
+  @override
+  State<PersonalExpenses> createState() => _PersonalExpensesState();
+}
 
-  final productController = TextEditingController();
-  final amountController = TextEditingController();
+class _PersonalExpensesState extends State<PersonalExpenses> {
+  final List<Transaction> _transactionsList = [
+    Transaction(
+      id: 't1',
+      title: 'Zapatos',
+      amount: 59990,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Comida',
+      amount: 15600,
+      date: DateTime.now(),
+    ),
+  ];
+
+  void _addNewTransaction(String transactionProduct, int transactionAmount) {
+    final newTx = Transaction(
+      id: DateTime.now().toString(),
+      title: transactionProduct,
+      amount: transactionAmount,
+      date: DateTime.now(),
+    );
+    setState(() {
+      _transactionsList.add(newTx);
+    });
+  }
+
+  void _startNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          child: NewTransaction(_addNewTransaction),
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Personal Expenses'),
+        title: Text('Personal Expenses'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => _startNewTransaction(context),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -45,8 +92,16 @@ class PersonalExpenses extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            const UserTransaction(),
+            TransactionList(_transactionsList)
           ],
+        ),
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _startNewTransaction(context),
+        child: const Icon(
+          Icons.add,
         ),
       ),
     );
